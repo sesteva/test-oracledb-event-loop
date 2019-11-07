@@ -1,21 +1,14 @@
 const oracledb = require("oracledb");
 
-let dbConfig = {
-  user: process.env.BILLING_DB_USER,
-  password: process.env.BILLING_DB_PASS,
-  connectString: process.env.BILLING_DB_CONNECTIONSTRING
-};
-
 class BillingUtil {
-  constructor() {
-    this.connection = null;
-  }
+  constructor() {}
 
   async execute() {
+    let connection;
     try {
-      this.connection = await oracledb.getConnection(dbConfig);
-      if (this.connection) {
-        const result = await this.connection.execute(
+      connection = await oracledb.getConnection();
+      if (connection) {
+        const result = await connection.execute(
           `SELECT CLIENT_ID, SECURITY_TOKEN, AIRLINE_CODE FROM CLIENT_AIRLINE`
         );
         return result;
@@ -24,9 +17,9 @@ class BillingUtil {
     } catch (error) {
       console.log(error);
     } finally {
-      if (this.connection) {
+      if (connection) {
         try {
-          await this.connection.close();
+          await connection.close();
         } catch (error) {
           console.log(error);
         }
