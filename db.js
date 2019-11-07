@@ -11,6 +11,16 @@ class BillingUtil {
     this.connection = null;
   }
 
+  async closeConnection() {
+    if (this.connection) {
+      try {
+        await this.connection.close();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
   async execute() {
     try {
       this.connection = await oracledb.getConnection(dbConfig);
@@ -23,15 +33,16 @@ class BillingUtil {
       return [];
     } catch (error) {
       console.log(error);
-    } finally {
-      if (this.connection) {
-        try {
-          await this.connection.close();
-        } catch (error) {
-          console.log(error);
-        }
-      }
     }
+    // finally {
+    //   if (this.connection) {
+    //     try {
+    //       await this.connection.close();
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   }
+    // }
   }
 }
 
