@@ -1,0 +1,17 @@
+{
+  "name": "test-event-loop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Santiago Esteva <santiago.esteva@sabre.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node -r dotenv/config index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "oracledb": "^4.0.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
